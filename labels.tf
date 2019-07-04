@@ -1,6 +1,6 @@
 
 module "labels" {
-  source = "git::https://github.com/corelogic/terraform-null-label?ref=v3.0.0"
+  source = "git::https://github.com/aberry2208/terraform-null-label?ref=v3.0.0"
 
   # CoreLogic
   primary_company_code    = var.primary_company_code
