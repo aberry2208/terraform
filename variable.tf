@@ -63,7 +63,7 @@ variable "application" {
 }
 
 variable "organization" {
-  default = "corelogic"
+  default = "tac"
 }
 
 variable "labels" {
@@ -87,8 +87,8 @@ variable "additional_mta_disk_sizes" {
   default = ["2","50"]
 }
 
-variable "var_company" {
-  default = "Corelogic"
+variable "company" {
+  default = "TAC"
 }
 
 variable "env" {
