@@ -6,13 +6,13 @@ resource "google_compute_instance" "relay" {
     zone                          = var.zone
     machine_type                  = var.machine_type
     boot_disk {
-    		initialize_params {
-    			image							      = data.google_compute_image.imagetouse.self_link
-    			size 							      = var.disk_size
+        initialize_params {
+          image                   = data.google_compute_image.imagetouse.self_link
+          size                    = var.disk_size
           type                    = var.disk_type
-    			}
+          }
         auto_delete               = true
-    	  }
+        }
     network_interface {
         subnetwork                = var.subnetwork
         subnetwork_project        = var.subnetwork_project
@@ -22,10 +22,10 @@ resource "google_compute_instance" "relay" {
       scopes = var.service_account_scope
       }
     labels                        = module.labels.labels
-    metadata 									    = merge(var.metadata,map("startup-script",file("${path.module}/startup_script/relay_startup_script"),"mta-load-balancer-address",google_compute_forwarding_rule.mta.ip_address,"mta-relay","relay"))
+    metadata                      = merge(var.metadata,map("startup-script",file("${path.module}/startup_script/startup-script"),"mta-load-balancer-address",google_compute_forwarding_rule.mta.ip_address,"mta-relay","relay"))
     lifecycle {
-    	ignore_changes 					    = ["attached_disk"]
-    	}
+      ignore_changes              = ["attached_disk"]
+      }
     }
 
 resource "google_compute_instance" "mta" {
@@ -36,13 +36,13 @@ resource "google_compute_instance" "mta" {
     zone                          = var.zone
     machine_type                  = var.machine_type
     boot_disk {
-    		initialize_params {
-    			image							      = data.google_compute_image.imagetouse.self_link
-    			size 							      = var.disk_size
+        initialize_params {
+          image                   = data.google_compute_image.imagetouse.self_link
+          size                    = var.disk_size
           type                    = var.disk_type
-    			}
+          }
         auto_delete               = true
-    	  }
+        }
     network_interface {
       subnetwork                  = var.subnetwork
       subnetwork_project          = var.subnetwork_project
@@ -55,8 +55,8 @@ resource "google_compute_instance" "mta" {
       scopes                      = var.service_account_scope
       }
     labels                        = module.labels.labels
-    metadata 									    = merge(var.metadata,map("startup-script",file("${path.module}/startup_script/relay_startup_script"),"mta-relay","mta"))
+    metadata                      = merge(var.metadata,map("startup-script",file("${path.module}/startup_script/startup-script"),"mta-relay","mta"))
     lifecycle {
-    	ignore_changes 					    = ["attached_disk"]
-    	}
+      ignore_changes              = ["attached_disk"]
+      }
     }
